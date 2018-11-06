@@ -20,15 +20,16 @@ unsigned int ft_get_prog_size(unsigned char *buf, int i)
 
 void	ft_write_code(t_plr *p, unsigned char *buf, int i)
 {
-	unsigned char code[p->head.prog_size];
 	unsigned int j;
+
+	if (!(p->code = (unsigned char*)malloc(sizeof(unsigned char) * (p->head.prog_size+1))))
+		return ;
 
 	j = 0;
 	while (j < p->head.prog_size)
 	{
-		code[j++] =  buf[i++];
+		p->code[j++] =  buf[i++];
 	}
-	p->code = code;
 }
 
 void		ft_fill(t_plr *p, unsigned char *buf)
@@ -44,7 +45,7 @@ void		ft_fill(t_plr *p, unsigned char *buf)
 	while (i < 132)
 		p->head.prog_name[j++] = buf[i++];
 	if (buf[i] == 0 && buf[i + 1] == 0 && buf[i+2] == 0 && buf[i+3] == 0)
-		printf("top\n");
+		printf("Error Null not exist\n");
 	i += 4;
 	p->head.prog_size = ft_get_prog_size(buf, i);
 	i += 4;
@@ -52,11 +53,9 @@ void		ft_fill(t_plr *p, unsigned char *buf)
 	while (i < 2188)
 		p->head.comment[j++] = buf[i++];
 	if (buf[i] == 0 && buf[i + 1] == 0 && buf[i+2] == 0 && buf[i+3] == 0)
-		printf("top\n");
+		printf("Error second null not exist\n");
 	i += 4;
 	ft_write_code(p, buf, i);
-	// while (head->prog_size-- > 0)
-	// 	i++;
 	printf("last %x\n", buf[2214]);
 	printf("magic %x\n", p->head.magic);
 	printf("come %s\n", p->head.comment);
@@ -67,10 +66,9 @@ void	ft_read(t_plr *p)
 	int				fd;
 	int				res;
 	unsigned char	buf[READ_SIZE];
-	int				len;
 
 	fd = -1;
-	len = 0;
+	printf("name of file %s\n", p->file_name);
 	if ((fd = open(p->file_name, O_RDONLY)) == -1)
 		printf("Error read file\n");
 	while ((res = read(fd, buf, READ_SIZE)) > 0)
@@ -78,21 +76,6 @@ void	ft_read(t_plr *p)
 	if (close(fd) == -1)
 		printf("close error\n");
 	ft_fill(p, buf);
-	// int len;
-	// int	fd;
-	// int *buf;
-	// (void)head;
-
-	// buf = NULL;
-	// len = ft_file_len(av);
-	// printf("len = %d\n", len);
-	// if ((fd = open(av, O_RDONLY)) == -1)
-	// 	printf("error\n");
-	// if (read(fd, buf, len) == -1)
-	// 	printf("read not read\n");
-	// if (close(fd) == -1)
-	// 	printf("close eror\n");
-	// printf("<>\n");
 }
 
 void	ft_read_cor(t_env *e, int ac)
