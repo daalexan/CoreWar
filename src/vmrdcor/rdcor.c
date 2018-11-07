@@ -44,7 +44,7 @@ void		ft_fill(t_plr *p, unsigned char *buf)
 	j = 0;
 	while (i < 132)
 		p->head.prog_name[j++] = buf[i++];
-	if (buf[i] == 0 && buf[i + 1] == 0 && buf[i+2] == 0 && buf[i+3] == 0)
+	if (buf[i] != 0 || buf[i + 1] != 0 || buf[i+2] != 0 || buf[i+3] != 0)
 		printf("Error Null not exist\n");
 	i += 4;
 	p->head.prog_size = ft_get_prog_size(buf, i);
@@ -52,7 +52,7 @@ void		ft_fill(t_plr *p, unsigned char *buf)
 	j = 0;
 	while (i < 2188)
 		p->head.comment[j++] = buf[i++];
-	if (buf[i] == 0 && buf[i + 1] == 0 && buf[i+2] == 0 && buf[i+3] == 0)
+	if (buf[i] != 0 || buf[i + 1] != 0 || buf[i+2] != 0 || buf[i+3] != 0)
 		printf("Error second null not exist\n");
 	i += 4;
 	ft_write_code(p, buf, i);

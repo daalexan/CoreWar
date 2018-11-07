@@ -33,7 +33,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIB_FILES)libft.a
 	@$(CC) -o $(NAME) $(OBJ) $(LIB_FILES)*.o
 
-%.o: %.c
+%.o: %.c $(VIRTM_HEADER)vm.h $(VIRTM_HEADER)op.h
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER) -I $(VIRTM_HEADER)
 
 $(LIB_FILES)libft.a:
