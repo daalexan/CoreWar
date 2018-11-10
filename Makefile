@@ -6,7 +6,7 @@
 #    By: daalexan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 18:19:30 by daalexan          #+#    #+#              #
-#    Updated: 2018/11/04 18:24:27 by daalexan         ###   ########.fr        #
+#    Updated: 2018/11/10 15:48:19 by daalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ CC = gcc
 LIB_FILES = ./includes/libft/
 VIRTM_FILES =  src/vmain.c \
 			   src/op.c \
-			   src/vmrdcor/rdcor.c
-				
+			   src/vmrdcor/rdcor.c \
+			   src/carriage.c \
+			   src/carrun.c
 OBJ = $(VIRTM_FILES:.c=.o)
 
 all: $(NAME)

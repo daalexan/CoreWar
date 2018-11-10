@@ -56,13 +56,16 @@ void	ft_fill_env(t_env *e)
 	unsigned int j;
 	int p;
 	int move;
+	int offset;
 
-	move = MEM_SIZE / e->plr_numb;
+	offset = MEM_SIZE / e->plr_numb;
+	move = offset;
 	p = 0;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		j = 0;
+		e->plrs[p].plr_pos = i;
 		while (j < e->plrs[p].head.prog_size)
 		{
 			e->fild[i] = e->plrs[p].code[j];
@@ -70,7 +73,7 @@ void	ft_fill_env(t_env *e)
 			i++;
 		}
 		i = move;
-		move += move;
+		move += offset;
 		p++;
 		if (p == e->plr_numb)
 			break ;
@@ -110,8 +113,8 @@ void	ft_memclr(t_env *e)
 int main(int ac, char **av)
 {
 	t_env	e;
-	//unsigned int i;
-	//int j = 0;
+	unsigned int i;
+	int j = 0;
 
 	if (ac < 2)
 		printf("Not enough files\n");
@@ -119,23 +122,24 @@ int main(int ac, char **av)
 	{
 		ft_parse_input(&e, ac, av);
 		ft_read_cor(&e, ac);
-		// while (j < e.plr_numb)
-		// {
-		// 	i = 0;
-		// 	printf("data %u\n", e.plrs[j].head.magic);
-		// 	printf("name %s\n", e.plrs[j].head.prog_name);
-		// 	printf("comment %s\n", e.plrs[j].head.comment);
-		// 	while (i < e.plrs[j].head.prog_size)
-		// 	{
-		// 		printf("%x ", e.plrs[j].code[i]);
-		// 		i++;
-		// 	}
-		// 	j++;
-		// }
+		while (j < e.plr_numb)
+		{
+			i = 0;
+			printf("data %u\n", e.plrs[j].head.magic);
+			printf("name %s\n", e.plrs[j].head.prog_name);
+			printf("comment %s\n", e.plrs[j].head.comment);
+			while (i < e.plrs[j].head.prog_size)
+			{
+				printf("%x ", e.plrs[j].code[i]);
+				i++;
+			}
+			j++;
+		}
 		printf("\n");
 		ft_bzero(e.fild, MEM_SIZE);
 		ft_fill_env(&e);
-		//ft_carriage_run(&e);
+		ft_init_carriage(&e);
+		ft_carriage_run(&e);
 		//ft_show_for_debug(&e);
 	}
 	printf("\n");

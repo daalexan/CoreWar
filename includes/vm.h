@@ -37,16 +37,26 @@ typedef struct 		s_plr
 	char			*file_name;
 	t_header		head;
 	unsigned char	*code;
+	unsigned int 	plr_pos;
 }					t_plr;
+
+typedef struct 			s_carlist
+{
+	t_carr				carr;
+	struct s_carlist	*next;
+}						t_carlist;
 
 typedef struct 		s_env
 {
+	t_carlist		*head;
 	unsigned char	fild[MEM_SIZE];
-	t_plr			plrs[4];
+	t_plr			plrs[5];
 	short			plr_numb;
 	
 }					t_env;
 
 void				ft_read_cor(t_env *e, int ac);
+void				ft_init_carriage(t_env *e);
+void				ft_carriage_run(t_env *e);
 
 #endif
